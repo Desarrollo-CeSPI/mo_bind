@@ -1,0 +1,7 @@
+name             'mo_bind'
+maintainer       'YOUR_NAME'
+maintainer_email 'YOUR_EMAIL'
+license          'All rights reserved'
+description      'Installs/Configures mo_bind'
+long_description 'Installs/Configures mo_bind'
+version          '0.1.0'
