@@ -1,42 +1,51 @@
 # mo_bind-cookbook
 
-TODO: Enter the cookbook description here.
+**This cookbook is currently under development**
+
+Installs and configures BIND.
 
 ## Supported Platforms
 
-TODO: List your supported platforms.
-
-## Attributes
-
-<table>
-  <tr>
-    <th>Key</th>
-    <th>Type</th>
-    <th>Description</th>
-    <th>Default</th>
-  </tr>
-  <tr>
-    <td><tt>['mo_bind']['bacon']</tt></td>
-    <td>Boolean</td>
-    <td>whether to include bacon</td>
-    <td><tt>true</tt></td>
-  </tr>
-</table>
+Ubuntu
 
 ## Usage
 
-### mo_bind::default
+This cookbook uses data bags to define DNS zones, with each zone in a databag.
+By default, information is retrieved from items located in data bag named
+dns_zones. This can be changed by setting the corresponding attribute.
 
-Include `mo_bind` in your node's `run_list`:
+To define a new zone:
+
+```
+knife data bag create dns_zones zone_name
+```
 
 ```json
 {
-  "run_list": [
-    "recipe[mo_bind::default]"
-  ]
+  "id": "zone_name",
+  "domain": "domain_name",
+  "zone_definition": {
+    "masters": [
+      "192.168.0.10"
+    ],
+    "slaves": [
+      "192.168.0.11"
+    ],
+    "options": {
+      "allow-transfer": [
+        "192.168.0.11"
+      ],
+      "allow-query": [
+        "any"
+      ]
+    }
+  }
 }
 ```
 
+Domain parameter is optional, if not present id is used as the domain name.
+
 ## License and Authors
 
-Author:: YOUR_NAME (<YOUR_EMAIL>)
+* Author:: Christian Rodriguez (<chrodriguez@gmail.com>)
+* Author:: Leandro Di Tommaso (<leandro.ditommaso@mikroways.net>)
