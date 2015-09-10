@@ -3,8 +3,8 @@
 
 <% @zones.each do |zone| %>
 zone "<%= zone_id(zone) %>" {
-  type <%= dns_type_for(zone) %>;
-  file "<%= zone_file(zone) %>";
+  <%= dns_configuration_for_type(zone) %>
+  file "<%= database_file_for(zone) %>";
   <% zone_definition(zone, 'options', []).each do |key, values| %>
   <%= sanitize_option(key, values) %>
   <% end %>

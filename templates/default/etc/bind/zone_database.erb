@@ -1,0 +1,27 @@
+; This file is automatically created by Chef.
+; Do not edit this manually or changes will be overwritten.
+
+$ORIGIN .
+$TTL <%= zone_database(@zone, 'ttl') %>
+<%= zone_id(@zone) %>.   IN SOA    ns1.<%= zone_id(@zone) %>. hostmaster.<%= zone_id(@zone) %>. (
+        <%= zone_database(@zone, 'serial') %>
+        <%= zone_database(@zone, 'refresh') %>
+        <%= zone_database(@zone, 'retry') %>
+        <%= zone_database(@zone, 'expire') %>
+        <%= zone_database(@zone, 'negative-ttl') %>
+        )
+;
+
+<% zone_database(@zone, 'root', []).each do |type, value| %>
+  <% Array(value).each do |v| %>
+<%= create_register_from(v, type) %>
+  <% end %>
+<% end %>
+
+$ORIGIN <%= zone_id(@zone) %>.
+
+<% registers_for(@zone).each do |type, values| %>
+  <% values.each do |key, value| %>
+<%= create_register_from(value, type, key) %>
+  <% end %>
+<% end %>
