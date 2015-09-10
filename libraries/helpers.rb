@@ -28,7 +28,7 @@ def update_databases(zones)
       group 'root'
       mode '0644'
       action :create
-      notifies :reload, 'service[bind9]'
+      notifies :restart, 'service[bind9]'
     end) if is_master?(zone)
   end
 end
