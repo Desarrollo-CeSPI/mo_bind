@@ -1,8 +1,6 @@
 # mo_bind-cookbook
 
-**This cookbook is currently under development**
-
-Installs and configures BIND.
+Installs and configures BIND using databags.
 
 ## Supported Platforms
 
