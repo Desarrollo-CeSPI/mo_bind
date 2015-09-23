@@ -1,0 +1,19 @@
+options {
+  directory "<%= @cache_base_dir %>";
+  <% if @forwarders %>
+  forwarders {
+  <% @forwarders.each do |forwarder| %>
+    <%= forwarder %>;
+  <% end %>
+  };
+  <% end %>
+  auth-nxdomain no;
+  listen-on-v6 { none; };
+  <% if @allow_recursion %>
+  allow-recursion {
+  <% @allow_recursion.each do |network| %>
+    <%= network %>;
+  <% end %>
+  };
+  <% end %>
+};
