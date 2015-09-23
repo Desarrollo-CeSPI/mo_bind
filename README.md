@@ -25,6 +25,10 @@ knife data bag create dns_zones zone_name
 {
   "id": "zone_name",
   "domain": "example",
+  "includes": [
+    "subdomain1.example",
+    "subdomain2.example"
+  ],
   "zone_definition": {
     "masters": [
       "192.168.0.10"
@@ -78,7 +82,11 @@ knife data bag create dns_zones zone_name
 }
 ```
 
-Domain parameter is optional, if not present id is used as the domain name.
+* Domain parameter is optional, if not present id is used as the domain name.
+* Includes parameters is also optional. It is used to reference another data bag
+  item in the same data bag where additional registers are specified. Those data
+  bag items referenced there must just define registers, in the same way it is
+  done for the main data bag item, starting at the registers key.
 
 Data bag is divided in two main sections:
 
