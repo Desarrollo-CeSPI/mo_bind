@@ -44,7 +44,11 @@ end
 def zone_definition(zone, key = nil, default = nil)
   scope = zone['zone_definition']
   scope = scope[key] if key
-  scope || default
+  scope || default || []
+end
+
+def join_ips(arr)
+  "#{arr.join '; ' }#{arr.empty? ? '':';'}"
 end
 
 def dns_type_for(zone)
@@ -53,9 +57,9 @@ end
 
 def dns_configuration_for_type(zone)
   if is_master?(zone)
-    "type master;\n  allow-transfer { #{zone_definition(zone, 'slaves').join("; ")}; };"
+    "type master;\n  allow-transfer { #{join_ips(zone_definition(zone, 'slaves'))} };"
   else
-    "type slave;\n  masters { #{zone_definition(zone, 'masters').join("; ")}; };"
+    "type slave;\n  masters { #{join_ips(zone_definition(zone, 'masters').join("; "))} };"
   end
 end
 

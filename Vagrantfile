@@ -11,15 +11,17 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.define 'bind', primary: true do |app|
     app.vm.hostname = "bind"
     app.omnibus.chef_version = "11.16.4"
-    app.vm.box = "chef/ubuntu-14.04"
+    app.vm.box = "bento/ubuntu-14.04"
     app.vm.network :private_network, ip: "10.100.8.2"
     app.berkshelf.enabled = true
     app.vm.provision :chef_zero do |chef|
+      chef.nodes_path = '.'
+      chef.data_bags_path = './test/databags'
       chef.json = {
       }
       chef.run_list = [
         "recipe[apt]",
-        "recipe[mo_bind::install]"
+        "recipe[mo_bind]"
       ]
 
     end

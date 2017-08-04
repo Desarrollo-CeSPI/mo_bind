@@ -14,7 +14,9 @@ $TTL <%= zone_database(@zone, 'ttl') %>
 
 <% zone_database(@zone, 'root', []).each do |type, value| %>
   <% Array(value).each do |v| %>
-<%= create_register_from(v, type) %>
+    <% create_register_from(v, type).each do |r| %>
+<%= r %>
+    <% end %>
   <% end %>
 <% end %>
 
@@ -22,6 +24,8 @@ $ORIGIN <%= zone_id(@zone) %>.
 
 <% registers_for(@zone).each do |type, values| %>
   <% values.each do |key, value| %>
-<%= create_register_from(value, type, key) %>
+    <% create_register_from(value, type, key).each do |r| %>
+<%= r %>
+    <% end %>
   <% end %>
 <% end %>
